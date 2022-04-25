@@ -24,7 +24,7 @@ class OffersController extends Controller
             'category_id' => $category_id
 
         ]);
-        return response('Category created '.$title, 201);
+        return response('Offer created '.$title, 201);
     }
     // public function list(){
     //     return 'List of offers';
