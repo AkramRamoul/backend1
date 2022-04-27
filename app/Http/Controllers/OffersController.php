@@ -26,6 +26,8 @@ class OffersController extends Controller
         ]);
         return response('Offer created '.$title, 201);
     }
+    
+    
     // public function list(){
     //     return 'List of offers';
     // }

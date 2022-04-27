@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,8 +33,6 @@ Route::get('/category', [OffersController::class, 'list']);
 Route::get('/hello',function(){
     return 'hello';
 });
+
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('offer', OffersController::class);
-
-Route::post('register','AuthController@register');
-Route::post('login','AuthController@login');
