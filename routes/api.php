@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OffersController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,19 @@ Route::get('/category', [OffersController::class, 'list']);
 Route::get('/hello',function(){
     return 'hello';
 });
+Route::post('register',[AuthController::class, 'register']);
+Route::post('login',[AuthController::class, 'login']);
+// Route::post('logout',[AuthController::class, 'logout']);
 
-Route::apiResource('category', CategoryController::class);
-Route::apiResource('offer', OffersController::class);
+// Route::apiResource('category', CategoryController::class);
+// Route::apiResource('offer', OffersController::class);
+Route::get('/offer', [OffersController::class, 'index']);
+Route::post('/offer', [OffersController::class, 'store']);
+
+Route::get('/category', [CategoryController::class, 'index']);
+
+Route::put('/offer/{id}', [OffersController::class, 'update']);
+Route::delete('/offer/{id}', [OffersController::class, 'destroy']);
+Route::get('/offer/search/{title}', [OffersController::class, 'search']);
+
+

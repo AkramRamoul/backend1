@@ -26,12 +26,62 @@ class OffersController extends Controller
         ]);
         return response('Offer created '.$title, 201);
     }
-    
-    
+     
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $offer = Offer::find($id);
+        $offer->update($request->all());
+        return $offer;
+    }
+
+
+
+
+     /**
+     * Search for a title
+     *
+     * @param  str  $title
+     * @return \Illuminate\Http\Response
+     */
+    public function search($title)
+    {
+        return Offer::where('title', 'like', '%'.$title.'%')->get();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        return Offer::destroy($id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     // public function list(){
     //     return 'List of offers';
     // }
-    // public function show($id){
-    //     return 'Offer: '.$id;
-    // }
+    public function show($id){
+        return 'Offer: '.$id;
+    }
 }
