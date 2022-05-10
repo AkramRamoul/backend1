@@ -38,15 +38,7 @@ Route::post('register',[AuthController::class, 'register']);
 Route::post('login',[AuthController::class, 'login']);
 // Route::post('logout',[AuthController::class, 'logout']);
 
-// Route::apiResource('category', CategoryController::class);
-// Route::apiResource('offer', OffersController::class);
-Route::get('/offer', [OffersController::class, 'index']);
-Route::post('/offer', [OffersController::class, 'store']);
+Route::apiResource('category', CategoryController::class);
+Route::apiResource('offer', OffersController::class);
 
-Route::get('/category', [CategoryController::class, 'index']);
-
-Route::put('/offer/{id}', [OffersController::class, 'update']);
-Route::delete('/offer/{id}', [OffersController::class, 'destroy']);
 Route::get('/offer/search/{title}', [OffersController::class, 'search']);
-
-
