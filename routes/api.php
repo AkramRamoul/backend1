@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OffersController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminAuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,12 @@ Route::get('/category', [OffersController::class, 'list']);
 // });
 Route::post('register',[AuthController::class, 'register']);
 Route::post('login',[AuthController::class, 'login']);
+
+Route::post('signup',[AdminAuthController::class, 'signup']);
+Route::post('signin',[AdminAuthController::class, 'signin']);
+
+
+
 
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('offer', OffersController::class);
