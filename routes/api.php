@@ -37,10 +37,13 @@ Route::get('/category', [OffersController::class, 'list']);
 // });
 Route::post('register',[AuthController::class, 'register']);
 Route::post('login',[AuthController::class, 'login']);
+Route::post('logout',[AuthController::class, 'logout']);
+
 
 Route::post('signup',[AdminAuthController::class, 'signup']);
 Route::post('signin',[AdminAuthController::class, 'signin']);
 
+Route::get('images/{type}/{id}','ImageController@fetch');
 
 
 
