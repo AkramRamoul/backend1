@@ -18,7 +18,6 @@ class CreateOffersTable extends Migration
             $table->timestamps();
             $table->text('title');
             $table->double('price');
-
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
         });
