@@ -14,7 +14,9 @@ class AddAreaToOffers extends Migration
     public function up()
     {
         Schema::table('Offers', function (Blueprint $table) {
-             $table->double('area')->after('price');
+            $table->double('bedrooms')->after('price');
+            $table->double('bathrooms')->after('price');
+            $table->double('area')->after('price');
         });
     }
 
@@ -26,7 +28,11 @@ class AddAreaToOffers extends Migration
     public function down()
     {
         Schema::table('Offers', function (Blueprint $table) {
-            $table->dropColumn('area');
+          $table->dropColumn('area');
+          $table->dropColumn('bathrooms');
+          $table->dropColumn('bedrooms');
+         
+
         });
     }
 }
