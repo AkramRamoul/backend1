@@ -43,11 +43,10 @@ Route::post('logout',[AuthController::class, 'logout']);
 Route::post('signup',[AdminAuthController::class, 'signup']);
 Route::post('signin',[AdminAuthController::class, 'signin']);
 
-Route::get('images/{type}/{id}','ImageController@fetch');
-
-
-
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('offer', OffersController::class);
+
+Route::get('images/{id}',[ImageController::class, 'fetch']);
+
 
 Route::get('/offer/search/{title}', [OffersController::class, 'search']);

@@ -9,6 +9,20 @@ class Offer extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title', 'price', 'bedrooms', 'bathrooms','category_id', 'area',
+        'title', 'price', 'bedrooms', 'bathrooms','category_id', 'area', 'user_id',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }
+
+

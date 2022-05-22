@@ -3,94 +3,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    //Register user
-    public function register(Request $request)
-    {
-        //validate fields
-        $attrs = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed'
-        ]);
-
-        //create user
-        $user = User::create([
-            'name' => $attrs['name'],
-            'email' => $attrs['email'],
-            'password' => bcrypt($attrs['password'])
-        ]);
-
-        //return user & token in response
-        return response([
-            'user' => $user,
-            'token' => $user->createToken('secret')->plainTextToken
-        ], 200);
-    }
-
-    // login user
-    public function login(Request $request)
-    {
-        //validate fields
-        $attrs = $request->validate([
+    public function register(Request $request){
+        $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required',
         ]);
 
-        // attempt login
-        if(!Auth::attempt($attrs))
-        {
-            return response([
-                'message' => 'Invalid credentials.'
-            ], 403);
+        $user = User::where('email', $request->email)->first();
+        if ($user) {    
+            return response('The provided email already exists.', 403);
+            
         }
 
-        //return user & token in response
-        return response([
-            'user' => auth()->user(),
-            'token' => auth()->user()->createToken('secret')->plainTextToken
-        ], 200);
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+
+        $user = User::create($input);
+        
+        $response['token'] =  $user->createToken($request->email)->plainTextToken;
+        $response['user$user'] = $user;
+        return response(json_encode($response), 201);
     }
 
-    // logout user
-    public function logout()
-    {
-        auth()->user()->tokens()->delete();
-        return response([
-            'message' => 'Logout success.'
-        ], 200);
-    }
-
-    // get user details
-    public function user()
-    {
-        return response([
-            'user' => auth()->user()
-        ], 200);
-    }
-
-    // update user
-    public function update(Request $request)
-    {
-        $attrs = $request->validate([
-            'name' => 'required|string'
+    public function login(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
-
-        $image = $this->saveImage($request->image, 'profiles');
-
-        auth()->user()->update([
-            'name' => $attrs['name'],
-            'image' => $image
-        ]);
-
-        return response([
-            'message' => 'User updated.',
-            'user' => auth()->user()
-        ], 200);
+            
+        $user = User::where('email', $request->email)->first();
+    
+        if (! $user || ! Hash::check($request->password, $user->password)) { 
+            return response('The provided credentials are incorrect.', 403);
+            // throw ValidationException::withMessages([
+            //     'email' => ['The provided credentials are incorrect.'],
+            // ]);
+        }
+    
+        $response['token'] =  $user->createToken($request->email)->plainTextToken;
+        $response['user$user'] = $user;
+        return response(json_encode($response));
     }
+    // public function user()
+    // {
+    //     return response([
+    //         'user' => auth()->user()
+    //     ], 200);
+    // }
 
+
+
+
+
+
+    // public function logout(Request $request) {
+    //     auth()->user$user()->tokens()->delete();
+
+    //     return [
+    //         'message' => 'Logged out'
+    //     ];
+    // }
 }
