@@ -10,6 +10,8 @@ class ImageController extends Controller
 {
     public function fetch($id){
         $image = Image::find($id);
-        return Storage::download($image->url);
+        ob_end_clean();
+        return 
+        Storage::download($image->url);
     }
 }

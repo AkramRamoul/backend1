@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers; 
 
 use Illuminate\Http\Request;
 use App\Models\Offer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Image;
 
 class OffersController extends Controller
 {
-     public function index(Request $request)
+     public function index(Request $request)    
     {
         return Offer::all();
     }

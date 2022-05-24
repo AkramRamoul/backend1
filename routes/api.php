@@ -6,7 +6,7 @@ use App\Http\Controllers\OffersController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminAuthController;
-
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
