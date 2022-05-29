@@ -14,4 +14,5 @@ class ImageController extends Controller
         return 
         Storage::download($image->url);
     }
+    
 }

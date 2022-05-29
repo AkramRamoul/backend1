@@ -18,7 +18,7 @@ class CreateImagesTable extends Migration
             $table->timestamps();
             $table->text('url');
             $table->unsignedBigInteger('offer_id');
-            $table->foreign('offer_id')->references('id')->on('offers');
+            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
         });
     }
 

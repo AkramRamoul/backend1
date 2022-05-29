@@ -48,5 +48,11 @@ Route::apiResource('offer', OffersController::class);
 
 Route::get('images/{id}',[ImageController::class, 'fetch']);
 
+Route::middleware('auth:user')->get('/user', function (Request $request) {
+    return $request->user();
+}); 
+Route::middleware('auth:admin')->get('/admin', function (Request $request) {
+    return $request->admin();
+});
 
 Route::get('/offer/search/{title}', [OffersController::class, 'search']);
